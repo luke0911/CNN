@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.camera.view.PreviewView
+        android:id="@+id/previewView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.example.Yolo_OCR.OverlayView
+        android:id="@+id/overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="false" />
+
+    <ImageButton
+        android:id="@+id/btnSettings"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="12dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="설정버튼"
+        android:src="@android:drawable/ic_menu_preferences"/>
+
+    <!-- Top Control Panel -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="vertical"
+        android:background="#DD000000"
+        android:padding="8dp"
+        android:elevation="4dp">
+
+        <!-- Detection Mode Toggle -->
+        <Button
+            android:id="@+id/btnToggleDetectionMode"
+            android:layout_width="120dp"
+            android:layout_height="48dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="글자→사물"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:background="#FF0066CC"
+            android:textColor="#FFFFFF"
+            android:layout_marginBottom="8dp"/>
+
+        <!-- Model Selection Button -->
+        <Button
+            android:id="@+id/btnToggleModel"
+            android:layout_width="120dp"
+            android:layout_height="48dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="M896"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:background="#FF4CAF50"
+            android:textColor="#FFFFFF"/>
+
+    </LinearLayout>
+
+    <!-- Bottom UI Container -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
+        android:background="#DD000000"
+        android:padding="20dp"
+        android:elevation="8dp">
+
+        <!-- Detection Count -->
+        <TextView
+            android:id="@+id/tvCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:text="Detections: 0 (Model: M896)"
+            android:textColor="#00E676"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:shadowColor="#000000"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="4"/>
+
+        <!-- Start/Stop Detection Controls -->
+        <LinearLayout
+            android:id="@+id/detectionControls"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="16dp">
+
+            <Button
+                android:id="@+id/btnStartDetection"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="56dp"
+                android:layout_marginEnd="8dp"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:text="▶ 시작"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textAllCaps="false"
+                android:background="#FF4CAF50"
+                android:textColor="#FFFFFF"
+                android:elevation="4dp"/>
+
+            <Button
+                android:id="@+id/btnStopDetection"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="56dp"
+                android:layout_marginStart="8dp"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:text="■ 중지"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textAllCaps="false"
+                android:background="#FFF44336"
+                android:textColor="#FFFFFF"
+                android:enabled="false"
+                android:elevation="4dp"/>
+
+        </LinearLayout>
+
+        <!-- Object Class Selection Buttons (initially hidden) -->
+        <LinearLayout
+            android:id="@+id/objectClassButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="8dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="인식할 객체 선택"
+                android:textColor="#FFEB3B"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginBottom="12dp"/>
+
+            <!-- First Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginBottom="8dp">
+
+                <ToggleButton
+                    android:id="@+id/btnDoor"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    android:textOff="🚪 문"
+                    android:textOn="🚪 문 ✓"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:background="#FF607D8B"
+                    android:textColor="#FFFFFF"/>
+
+                <ToggleButton
+                    android:id="@+id/btnExitSign"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    android:textOff="🚨 비상구"
+                    android:textOn="🚨 비상구 ✓"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:background="#FF607D8B"
+                    android:textColor="#FFFFFF"/>
+
+                <ToggleButton
+                    android:id="@+id/btnFireExtinguisher"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:textOff="🧯 소화기"
+                    android:textOn="🧯 소화기 ✓"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:background="#FF607D8B"
+                    android:textColor="#FFFFFF"/>
+
+            </LinearLayout>
+
+            <!-- Second Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginBottom="8dp">
+
+                <ToggleButton
+                    android:id="@+id/btnElevator"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    android:textOff="🛗 승강기"
+                    android:textOn="🛗 승강기 ✓"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:background="#FF607D8B"
+                    android:textColor="#FFFFFF"/>
+
+                <ToggleButton
+                    android:id="@+id/btnRestroomSign"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    android:textOff="🚻 화장실"
+                    android:textOn="🚻 화장실 ✓"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:background="#FF607D8B"
+                    android:textColor="#FFFFFF"/>
+
+                <ToggleButton
+                    android:id="@+id/btnWaterDispenser"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:textOff="💧 정수기"
+                    android:textOn="💧 정수기 ✓"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:background="#FF607D8B"
+                    android:textColor="#FFFFFF"/>
+
+            </LinearLayout>
+
+            <!-- Third Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="start">
+
+                <ToggleButton
+                    android:id="@+id/btnStairSign"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    android:textOff="🪜 계단"
+                    android:textOn="🪜 계단 ✓"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:background="#FF607D8B"
+                    android:textColor="#FFFFFF"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- POI Recording Buttons (Bottom Left) -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="80dp"
+        android:orientation="vertical"
+        android:background="#DD000000"
+        android:padding="8dp"
+        android:elevation="4dp">
+
+        <Button
+            android:id="@+id/btnSetPoiReference"
+            android:layout_width="140dp"
+            android:layout_height="44dp"
+            android:text="📍 기준점 설정"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:background="#FF4CAF50"
+            android:textColor="#FFFFFF"/>
+
+        <Button
+            android:id="@+id/btnSavePoi"
+            android:layout_width="140dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="6dp"
+            android:text="💾 POI 저장"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:background="#FF2196F3"
+            android:textColor="#FFFFFF"/>
+
+        <Button
+            android:id="@+id/btnClearPoi"
+            android:layout_width="140dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="6dp"
+            android:text="🔄 POI 초기화"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:background="#FFFF5722"
+            android:textColor="#FFFFFF"/>
+
+    </LinearLayout>
+
+</FrameLayout>

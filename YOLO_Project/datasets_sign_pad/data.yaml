@@ -1,0 +1,7 @@
+# /Users/idohun/WorkSpace/CNN/YOLO_Project/datasets_sign_pad/data.yaml
+path: /Users/idohun/WorkSpace/CNN/YOLO_Project/datasets_sign_pad
+train: train/images
+val: val/images
+test: test/images
+nc: 1
+names: [sign]

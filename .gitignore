@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.venv/
+.venv311/
+venv/
+env/
+
+# YOLO/ML model files
+*.pt
+*.onnx
+*.onnx.*
+*.engine
+*.tflite
+*.weights
+
+# Training runs
+runs/
+
+# Data
+data/
+scene-text-dataset-master/
+
+# Large binary/dataset files
+*.npy
+*.npz
+YOLO_Project/datasets_sign/
+YOLO_Project/object_detection/
+parity_out/
+
+# Android build artifacts
+App/app/build/
+App/build/
+App/.gradle/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# macOS
+.DS_Store
+
+# Jupyter
+.ipynb_checkpoints/
