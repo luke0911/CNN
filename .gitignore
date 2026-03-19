@@ -16,6 +16,9 @@ env/
 *.tflite
 *.weights
 
+# Allow Android app asset models
+!App/app/src/main/assets/*.onnx
+
 # Training runs
 runs/
 
